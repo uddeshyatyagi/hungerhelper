@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    if user
+        include partials/navbar-authentication-recipient
+        script(src='http://www.charitynavigator.org/feeds/widgets/search.js' type='text/javascript')
+
+
+    else
+        include partials/navbar-unauthenticated
+    

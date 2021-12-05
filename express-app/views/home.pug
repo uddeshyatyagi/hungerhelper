@@ -1,0 +1,199 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css')
+  link(rel='stylesheet' href='/stylesheets/styles.css')
+  title Hunger Helpers
+
+header.header
+  a.logo(href='#')
+    i.fab.fa-hire-a-helper
+    | unger 
+    i.fab.fa-hire-a-helper
+    | elpers
+  .fas.fa-bars
+  nav#not-logged-in.navbar
+    ul
+      li
+        a(href='#home') home
+      li
+        a(href='#about') about
+      li
+        a(href='#service') service
+      li
+        a(href='#team') team
+      li
+        a(href='#donate') Donate Us
+      li
+        a(href='#post') Projects
+      li.nav-item
+        .dropdown
+          button.dropbtn Log In
+          .dropdown-content
+            a(href='donor.html') Donor
+            a(href='volunteer.html') Volunteer
+            a(href='admin.html') Admin
+
+
+section#home.home
+  h1.banner Let&apos;s Help
+  h3.slogan If you want to eliminate hunger, everybody has to be involved.
+  a(href='sharefood.html')
+    button Share Food
+  .wave.wave1
+  .wave.wave2
+  .wave.wave3
+ 
+section#about.about
+  h1.heading about us
+  .row
+    .content
+      p(style='font-size: 25px;')
+        | Hunger Helpers is a volunteer based, non-profit organization that works to get surplus food from restaurants and the community to serve the less fortunate people.
+      a(href='#')
+        button.btn read more
+    .image
+      img(src='images/img.jpeg' alt='')
+section#service.service
+  h1.headingg our services 
+  .box-container
+    .box
+      i.fas.fa-hamburger
+      a(href='donor.html')
+        h3 Share Food
+    
+    .box
+      i.fas.fa-rupee-sign
+      a(href='#donate')
+        h3 Donate Money
+      
+    .box
+      i.fas.fa-hands-helping
+      a(href='volunteer.html')
+        h3 Volunteer
+     
+    .box
+      i.fas.fa-hamburger
+      a(href='recipient.html')
+        h3 Recipient
+    
+section#team.team
+  h1.heading our team
+  .row
+    .card
+      .image
+        img(src='/images/1.jpg' alt='')
+      .info
+        h3 Shikhar Gupta
+        span web designer
+        .icons
+          a.fab.fa-facebook-f(href='#')
+          a.fab.fa-twitter(href='#')
+          a.fab.fa-instagram(href='#')
+    .card
+      .image
+        img(src='/images/2.jpg' alt='')
+      .info
+        h3 Shreya
+        span web designer
+        .icons
+          a.fab.fa-facebook-f(href='#')
+          a.fab.fa-twitter(href='#')
+          a.fab.fa-instagram(href='#')
+    .card
+      .image
+        img(src='/images/3.jpg' alt='')
+      .info
+        h3 Chetan
+        span web designer
+        .icons
+          a.fab.fa-facebook-f(href='#')
+          a.fab.fa-twitter(href='#')
+          a.fab.fa-instagram(href='#')
+    .card
+      .image
+        img(src='/images/4.jpg' alt='')
+      .info
+        h3 Uddeshya
+        span web designer
+        .icons
+          a.fab.fa-facebook-f(href='#')
+          a.fab.fa-twitter(href='#')
+          a.fab.fa-instagram(href='#')
+section#donate.donate
+  h1.hheading Donate Us
+  .video-container
+    video(src='/images/vid.mp4' loop='' autoplay='' muted='')
+  .form-container
+    form(action='')
+      .inputBox
+        input(type='text' placeholder='first name')
+        input(type='text' placeholder='last name')
+      .inputBox
+        input(type='email' placeholder='enter your email')
+        select(name='' id='')
+          option(value='' selected='' disabled='') donation amount
+          option(value='$5') $5
+          option(value='$10') $10
+          option(value='$15') $15
+          option(value='$20') $20
+      textarea(name='' id='' cols='30' rows='10' placeholder='message ( optional )')
+      input.bttn(type='submit')
+
+section#post.post
+  h1.headingg Our Recent Projects
+  .box-container
+    .box
+      img(src='/images/1.jpg' alt='')
+      .content
+        span
+          i.fas.fa-calendar
+          |  jan 2, 2021
+        h3 post title goes here
+      
+        a(href='#')
+          button.btn read more
+    .box
+      img(src='/images/2.jpg' alt='')
+      .content
+        span
+          i.fas.fa-calendar
+          |  jan 3, 2021
+        h3 post title goes here
+      
+        a(href='#')
+          button.btn read more
+    .box
+      img(src='/images/3.jpg' alt='')
+      .content
+        span
+          i.fas.fa-calendar
+          |  jan 8, 2021
+        h3 post title goes here
+       
+        a(href='#')
+          button.btn read more
+
+section.footer
+  .box-container
+    .box
+      a.logo(href='#') Hunger Helpers
+      p
+        | Hunger Helpers is a volunteer based, non-profit organization that works to get surplus food from restaurants and the community to serve the less fortunate people.
+    .box
+      h3.share share
+      a(href='#') facebook
+      a(href='#') twitter
+      a(href='#') instagram
+      a(href='#') github
+    .box
+      h3.letter newsletter
+      form(action='')
+        input(type='email' placeholder='enter your email')
+        button.fas.fa-paper-plane(type='submit')
+  h1.credit
+    | Made with &#x2764; by 
+    span Group-50
+script(src='js/main.js')

@@ -1,0 +1,366 @@
+extends layout
+
+block content
+  link(rel="stylesheet" href="/stylesheets/donation-map.css")
+  if user
+    include partials/navbar-authenticated-donor
+  else
+    include partials/navbar-unauthenticated
+
+  style.
+    html, body, #map {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    #map {
+      left: 0;
+      position: absolute;
+      padding: 0px;
+      margin: 0px;
+      top: 64px;
+      left: 0px;
+    }
+  body
+    #map
+
+  script(src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js")
+  script(src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js")
+
+  script.
+    let map;
+    let firebaseConfig = {
+    apiKey:"AIzaSyBKdcjAy11rZ8ekg-GXJl0i2omqoHcZdWM",
+    authDomain:"hungerhelpers-ed73c.firebaseapp.com",
+    databaseURL:"https://hungerhelpers-ed73c-default-rtdb.firebaseio.com",
+    projectId:"hungerhelpers-ed73c",
+    storageBucket:"hungerhelpers-ed73c.appspot.com",
+    messagingSenderId:"311737556096",
+    appId:"1:311737556096:web:76fe60178f70ee9ee65a65",
+    measurementId:"G-9SR7YBX8CL"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 28.5191046, lng: 77.3632335},
+      zoom: 17,
+      disableDefaultUI: true,
+      styles:
+      [
+        {
+          "elementType": "geometry",
+          "stylers": [
+          {
+            "color": "#1d2c4d"
+          }
+          ]
+        },
+        {
+          "elementType": "labels.text.fill",
+          "stylers": [
+          {
+            "color": "#8ec3b9"
+          }
+          ]
+        },
+        {
+          "elementType": "labels.text.stroke",
+          "stylers": [
+          {
+            "color": "#1a3646"
+          }
+          ]
+        },
+        {
+          "featureType": "administrative.country",
+          "elementType": "geometry.stroke",
+          "stylers": [
+          {
+            "color": "#4b6878"
+          }
+          ]
+        },
+        {
+          "featureType": "administrative.land_parcel",
+          "elementType": "labels.text.fill",
+          "stylers": [
+          {
+            "color": "#64779e"
+          }
+          ]
+        },
+        {
+          "featureType": "administrative.province",
+          "elementType": "geometry.stroke",
+          "stylers": [
+          {
+            "color": "#4b6878"
+          }
+          ]
+        },
+        {
+          "featureType": "landscape.man_made",
+          "elementType": "geometry.stroke",
+          "stylers": [
+          {
+            "color": "#334e87"
+          }
+          ]
+        },
+        {
+          "featureType": "landscape.natural",
+          "elementType": "geometry",
+          "stylers": [
+          {
+            "color": "#023e58"
+          }
+          ]
+        },
+        {
+          "featureType": "poi",
+          "elementType": "geometry",
+          "stylers": [
+          {
+            "color": "#283d6a"
+          }
+          ]
+        },
+        {
+          "featureType": "poi",
+          "elementType": "labels.text.fill",
+          "stylers": [
+          {
+            "color": "#6f9ba5"
+          }
+          ]
+        },
+        {
+          "featureType": "poi",
+          "elementType": "labels.text.stroke",
+          "stylers": [
+          {
+            "color": "#1d2c4d"
+          }
+          ]
+        },
+        {
+          "featureType": "poi.business",
+          "stylers": [
+          {
+            "visibility": "off"
+          }
+          ]
+        },
+        {
+          "featureType": "poi.park",
+          "elementType": "geometry.fill",
+          "stylers": [
+          {
+            "color": "#023e58"
+          }
+          ]
+        },
+        {
+          "featureType": "poi.park",
+          "elementType": "labels.text",
+          "stylers": [
+          {
+            "visibility": "off"
+          }
+          ]
+        },
+        {
+          "featureType": "poi.park",
+          "elementType": "labels.text.fill",
+          "stylers": [
+          {
+            "color": "#3C7680"
+          }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "geometry",
+          "stylers": [
+          {
+            "color": "#304a7d"
+          }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "labels.text.fill",
+          "stylers": [
+          {
+            "color": "#98a5be"
+          }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "labels.text.stroke",
+          "stylers": [
+          {
+            "color": "#1d2c4d"
+          }
+          ]
+        },
+        {
+          "featureType": "road.highway",
+          "elementType": "geometry",
+          "stylers": [
+          {
+            "color": "#2c660"
+          }
+          ]
+        },
+        {
+          "featureType": "road.highway",
+          "elementType": "geometry.stroke",
+          "stylers": [
+          {
+            "color": "#255763"
+          }
+          ]
+        },
+        {
+          "featureType": "road.highway",
+          "elementType": "labels.text.fill",
+          "stylers": [
+          {
+            "color": "#b0d5ce"
+          }
+          ]
+        },
+        {
+          "featureType": "road.highway",
+          "elementType": "labels.text.stroke",
+          "stylers": [
+          {
+            "color": "#023e58"
+          }
+          ]
+        },
+        {
+          "featureType": "transit",
+          "elementType": "labels.text.fill",
+          "stylers": [
+          {
+            "color": "#98a5be"
+          }
+          ]
+        },
+        {
+          "featureType": "transit",
+          "elementType": "labels.text.stroke",
+          "stylers": [
+          {
+            "color": "#1d2c4d"
+          }
+          ]
+        },
+        {
+          "featureType": "transit.line",
+          "elementType": "geometry.fill",
+          "stylers": [
+          {
+            "color": "#283d6a"
+          }
+          ]
+        },
+        {
+          "featureType": "transit.station",
+          "elementType": "geometry",
+          "stylers": [
+          {
+            "color": "#3a4762"
+          }
+          ]
+        },
+        {
+          "featureType": "water",
+          "elementType": "geometry",
+          "stylers": [
+          {
+            "color": "#0e1626"
+          }
+          ]
+        },
+        {
+          "featureType": "water",
+          "elementType": "labels.text.fill",
+          "stylers": [
+          {
+            "color": "#4e6d70"
+          }
+          ]
+        }
+      ],
+      streetViewControl: false,
+      });
+
+      firebase
+      .firestore()
+      .collection('donations')
+      .get()
+      .then(snapshot => {
+        donations = snapshot.docs.map(document => {
+          let donation = document.data();
+          donation.id = document.id;
+
+          if (!donation.expired) {
+            let allergyInfo = "";
+            if(donation.halal) allergyInfo += "Halal "
+            if(donation.kosher) allergyInfo += "Kosher "
+            if(donation.pescatarian) allergyInfo += "Pescatarian "
+            if(donation.vegan) allergyInfo += "Vegan "
+            if(donation.vegetarian) allergyInfo += "Vegetarian "
+
+            let contentString = 
+              "<style> p {font-size: 1.5em;} </style>" +
+              '<div id="content">'+
+              '<div id="siteNotice">'+
+              '</div>'+
+              '<h1 id="firstHeading" class="firstHeading">' + donation.food_item + '</h1>'+
+              '<div id="bodyContent">'+
+              '<p><b>Amount: </b>' + donation.amount + '<br>'+
+              '<b>Additional Info: </b>' + allergyInfo + '<br>'+
+              //- '<b>Location: </b>' + donation.meeting_point + '<br>'+
+              '<b>Donated by: </b>' + donation.donator + '<br>'+
+              '<b>Pickup Date: </b>' + donation.pickup_date.toDate().toLocaleString() + '<br>'+
+              '<b>Expiration Date: </b>' + donation.expiration_date.toDate().toLocaleString() + '</p>'+
+              '</div>'+
+              '</div>';
+
+            let infoWindow = new google.maps.InfoWindow({
+              content: contentString
+            });
+
+            let pos = {lat: donation.meeting_point_geopoint.latitude, lng: donation.meeting_point_geopoint.longitude};
+
+            let marker = new google.maps.Marker({
+              position: pos,
+              map: map,
+              title: donation.food_item
+            });
+
+            marker.addListener("mousedown", () => {
+              infoWindow.open(map, marker);
+              });
+
+            marker.addListener("mouseover", () => {
+              infoWindow.open(map, marker);
+              });
+
+            marker.addListener("mouseout", () => {
+              infoWindow.close();
+              });
+            }
+          });
+        });
+      }
+
+  script(async, defer, src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDT-p0Bo3ZEb7Irx_3WyAgKAF79QcLpNtQ&callback=initMap" type="text/javascript")
